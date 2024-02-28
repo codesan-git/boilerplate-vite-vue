@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Todo from './components/Todo.vue';
-import Todos from './components/Todos.vue'
-
+import Todos from './components/Todos.vue';
+import LeftSideBar from './components/LeftSideBar.vue';
 const visitedPosts = ref(new Set())
     const isVisited = (id: number) => visitedPosts.value.has(id)
 
@@ -15,17 +15,14 @@ const visitedPosts = ref(new Set())
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
+  <main>
+    <div>
+      <LeftSideBar />
+      <Todo v-if="todoId > -1" :todoId="todoId" @setTodoId="setTodoId" />
+      <Todos v-else :isVisited="isVisited" @setTodoId="setTodoId" />
+    </div>
+  </main>
   <!-- <Table /> -->
-  <Todo v-if="todoId > -1" :todoId="todoId" @setTodoId="setTodoId" />
-  <Todos v-else :isVisited="isVisited" @setTodoId="setTodoId" />
 </template>
 
 <style scoped>
